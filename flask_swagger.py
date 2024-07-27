@@ -189,6 +189,8 @@ def swagger(app, prefix=None, process_doc=_sanitize,
                 defs = _extract_definitions(defs)
                 params = swag.get('parameters', [])
                 defs += _extract_definitions(params)
+                requestBody = swag.get('requestBody', [])
+                defs += _extract_definitions(requestBody)
                 responses = swag.get('responses', {})
                 responses = {
                     str(key): value
