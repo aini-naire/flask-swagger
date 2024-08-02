@@ -165,7 +165,7 @@ def swagger(app, prefix=None, process_doc=_sanitize,
     ignore_verbs = {"HEAD", "OPTIONS"}
     # technically only responses is non-optional
     optional_fields = ['tags', 'consumes', 'produces', 'schemes', 'security',
-                       'deprecated', 'operationId', 'externalDocs']
+                       'deprecated', 'operationId', 'externalDocs', 'requestBody']
 
     for rule in app.url_map.iter_rules():
         if prefix and rule.rule[:len(prefix)] != prefix:
@@ -189,8 +189,6 @@ def swagger(app, prefix=None, process_doc=_sanitize,
                 defs = _extract_definitions(defs)
                 params = swag.get('parameters', [])
                 defs += _extract_definitions(params)
-                requestBody = swag.get('requestBody', [])
-                defs += _extract_definitions(requestBody)
                 responses = swag.get('responses', {})
                 responses = {
                     str(key): value
